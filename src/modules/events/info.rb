@@ -5,7 +5,7 @@ module Bot
     module Info
       extend Discordrb::EventContainer
       mention do |event|
-        if event.message.downcase.include? "!rules" then
+        if event.content.downcase.include? "!rules" then
           event.respond CONFIG.rules_message
         else
           event.respond CONFIG.info_message
