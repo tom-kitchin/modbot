@@ -5,7 +5,11 @@ module Bot
     module Info
       extend Discordrb::EventContainer
       mention do |event|
-        event.respond "Hello! I'm Modbot, a support bot for moderating this server. If you have a concern or query you'd like to raise with the moderators privately, just PM me and I'll pass on your message. An active moderator will get back to you as soon as possible."
+        if event.message.downcase.include? "!rules" then
+          event.respond CONFIG.rules_message
+        else
+          event.respond CONFIG.info_message
+        end
       end
     end
   end

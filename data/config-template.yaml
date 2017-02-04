@@ -13,3 +13,18 @@ owner:
 
 # game the bot is playing
 game:
+
+# the channel ID to pass messages on to
+mod_channel:
+
+# the channel ID to log audit events to
+audit_channel:
+
+# a message to send to new users.
+new_user_message:
+
+# a general message when people talk to modbot
+info_message:
+
+# a specific message if people ask for modbots rules
+rules_message:
