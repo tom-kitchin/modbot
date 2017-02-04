@@ -1,9 +1,9 @@
 module Bot
   module DiscordEvents
     # Logs new users and tells them about server rules.
-    module Ping
+    module NewUser
       extend Discordrb::EventContainer
-      member_join() do |event|
+      member_join do |event|
         if CONFIG.audit_channel then
           target_channel = CONFIG.audit_channel
         else
