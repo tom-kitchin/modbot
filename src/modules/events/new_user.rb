@@ -16,11 +16,11 @@ module Bot
         end
 
         # Send new user audit log.
-        event.bot.send_message(target_channel, "New user: <@#{event.user.id}")
+        event.bot.send_message(target_channel, "New user: <@#{event.user.id}>")
 
         # Send the new user the new_user_message, if there is one set.
         if CONFIG.new_user_message then
-          new_user_pms_info_response = Discordrb::API::User.create_pm(event.bot.token, CONFIG.user)
+          new_user_pms_info_response = Discordrb::API::User.create_pm(event.bot.token, event.user.id)
           new_user_pms_info = JSON.parse(new_user_pms_info_response.body)
           new_user_pms = new_user_pms_info['id']
           event.bot.send_message(new_user_pms, CONFIG.new_user_message)
