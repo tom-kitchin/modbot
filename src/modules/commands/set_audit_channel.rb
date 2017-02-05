@@ -5,6 +5,7 @@ module Bot
     module SetModChannel
       extend Discordrb::Commands::CommandContainer
       command(:set_audit_channel) do |event, channel|
+        return unless event.user.id == CONFIG.owner
         channel_id = channel.gsub(/<#(.+)>/, '\1')
         begin
           channel_info_response = Discordrb::API::Channel.resolve(event.bot.token, channel_id)

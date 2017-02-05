@@ -4,7 +4,7 @@ module Bot
     # It passes on the PM to the mod_channel and returns a reassuring message.
     module PM
       extend Discordrb::EventContainer
-      pm do |event, message|
+      pm do |event|
         if event.content.downcase.include? "!rules" then
           event.respond CONFIG.rules_message
         elsif event.content.downcase.include? "!new" then
