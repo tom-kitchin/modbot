@@ -9,6 +9,8 @@ module Bot
           event.respond CONFIG.rules_message
         elsif event.content.downcase.include? "!new" then
           event.respond CONFIG.new_user_message
+        elsif event.content.downcase.include? "!help" then
+          event.respond CONFIG.help_message
         else
           event.respond CONFIG.info_message
         end

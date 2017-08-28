@@ -4,7 +4,7 @@ module Bot
     # This used to check if bot is alive
     module SetModChannel
       extend Discordrb::Commands::CommandContainer
-      command(:set_audit_channel) do |event, channel|
+      command(:set_audit_channel, help_available: false) do |event, channel|
         return unless event.user.id == CONFIG.owner
         channel_id = channel.gsub(/<#(.+)>/, '\1')
         begin

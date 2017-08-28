@@ -9,6 +9,8 @@ module Bot
           event.respond CONFIG.rules_message
         elsif event.content.downcase.include? "!new" then
           event.respond CONFIG.new_user_message
+        elsif event.content.downcase.include? "!help" then
+          event.respond CONFIG.help_message
         else
           if CONFIG.mod_channel then
             target_channel = CONFIG.mod_channel
