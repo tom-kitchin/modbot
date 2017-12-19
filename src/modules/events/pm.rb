@@ -6,6 +6,8 @@ module Bot
       extend Discordrb::EventContainer
 
       module ModbotPMCommands
+        module_function
+
         def rules (event)
           event.respond CONFIG.rules_message
         end
@@ -20,6 +22,8 @@ module Bot
       end
 
       module ModbotUtils
+        module_function
+
         def get_owner_channel
           target_channel_info_response = Discordrb::API::User.create_pm(event.bot.token, CONFIG.owner)
           target_channel_info = JSON.parse(target_channel_info_response.body)
