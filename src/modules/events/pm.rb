@@ -24,7 +24,7 @@ module Bot
       module ModbotUtils
         module_function
 
-        def get_owner_channel
+        def get_owner_channel (event)
           target_channel_info_response = Discordrb::API::User.create_pm(event.bot.token, CONFIG.owner)
           target_channel_info = JSON.parse(target_channel_info_response.body)
           return target_channel_info['id']
@@ -36,20 +36,20 @@ module Bot
           args = event.content.slice(1..-1).split
           event_name = args.slice!(0).downcase.to_sym
           if ModbotPMCommands.respond_to? event_name then
-            if (CONFIG.debug) then event.bot.send_message(ModbotUtils.get_owner_channel(), "Trying to accept command #{event_name}") end
+            if (CONFIG.debug) then event.bot.send_message(ModbotUtils.get_owner_channel(event), "Trying to accept command #{event_name}") end
             ModbotPMCommands.send(event_name, event)
           else
             event.respond "Command `!#{event_name}` not recognised. If you were trying to reach the moderators with a message, just type it to me normally (without an ! on the beginning) :)"
           end
         else
           if CONFIG.debug then
-            target_channel = ModbotUtils.get_owner_channel()
+            target_channel = ModbotUtils.get_owner_channel(event)
           elsif CONFIG.mod_channel then
             target_channel = CONFIG.mod_channel
           else
             # If we don't have a mod channel, PM it to the bot owner and
             # also remind them to set a mod channel!
-            target_channel = ModbotUtils.get_owner_channel()
+            target_channel = ModbotUtils.get_owner_channel(event)
             event.bot.send_message(target_channel, "Hey, you should set my mod channel with set_mod_channel!")
           end
 
