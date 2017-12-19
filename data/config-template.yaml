@@ -28,3 +28,6 @@ info_message:
 
 # a specific message if people ask for modbots rules
 rules_message:
+
+# debug mode
+debug: false
