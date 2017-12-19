@@ -17,7 +17,8 @@ module Bot
   BOT = Discordrb::Commands::CommandBot.new(client_id: CONFIG.client_id,
                                             token: CONFIG.token,
                                             prefix: CONFIG.prefix,
-                                            help_available: false)
+                                            help_available: false,
+                                            help_command: false)
 
   # Discord commands
   module DiscordCommands; end

@@ -4,13 +4,30 @@ module Bot
     # It passes on the PM to the mod_channel and returns a reassuring message.
     module PM
       extend Discordrb::EventContainer
-      pm do |event|
-        if event.content.downcase.include? "!rules" then
+
+      module ModbotPMCommands
+        def rules (event)
           event.respond CONFIG.rules_message
-        elsif event.content.downcase.include? "!new" then
+        end
+
+        def new (event)
           event.respond CONFIG.new_user_message
-        elsif event.content.downcase.include? "!help" then
+        end
+
+        def help (event)
           event.respond CONFIG.help_message
+        end
+      end
+
+      pm do |event|
+        if event.content[0] == '!' then
+          args = event.content.slice(1..-1).split
+          event_name = args.slice!(0).lowercase.to_sym
+          if ModbotPMCommands.respond_to? event_name then
+            ModbotPMCommands.send(event_name, event)
+          else
+            event.respond "Command `!#{event_name}` not recognised. If you were trying to reach the moderators with a message, just type it to me normally (without an ! on the beginning) :)"
+          end
         else
           if CONFIG.mod_channel then
             target_channel = CONFIG.mod_channel
