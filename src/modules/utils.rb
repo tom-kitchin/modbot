@@ -1,4 +1,7 @@
 module ModbotCommands
+  # Bot configuration
+  CONFIG = OpenStruct.new YAML.load_file 'data/config.yaml'
+
   module_function
 
   def rules (event)
@@ -15,6 +18,9 @@ module ModbotCommands
 end
 
 module ModbotUtils
+  # Bot configuration
+  CONFIG = OpenStruct.new YAML.load_file 'data/config.yaml'
+
   module_function
 
   def get_owner_channel (event)

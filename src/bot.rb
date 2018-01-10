@@ -11,9 +11,6 @@ module Bot
   # Bot configuration
   CONFIG = OpenStruct.new YAML.load_file 'data/config.yaml'
 
-  # Bot utility helpers
-  require_relative('modules/utils')
-
   # Create the bot.
   # The bot is created as a constant, so that you
   # can access the cache anywhere.
