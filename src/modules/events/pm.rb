@@ -12,7 +12,7 @@ module Bot
           args = event.content.slice(1..-1).split
           event_name = args.slice!(0).downcase.to_sym
           if ModbotCommands.respond_to? event_name then
-            if (CONFIG.debug) then ModbotUtils.message_owner(event, "Trying to accept command #{event_name}") end
+            if (CONFIG.debug) then ModbotUtils.message_owner(event, "Trying to accept command #{event_name} with args #{args.join(', ')}") end
             ModbotCommands.send(event_name, event)
           else
             event.respond "Command `!#{event_name}` not recognised. If you were trying to reach the moderators with a message, just type it to me normally (without an ! on the beginning) :)"
