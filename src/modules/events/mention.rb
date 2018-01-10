@@ -15,12 +15,15 @@ module Bot
           ModbotUtils.message_owner(event, "Stripped message is ```#{stripped_message}```")
         end
 
-        if event.content.downcase.include? "!rules" then
-          event.respond CONFIG.rules_message
-        elsif event.content.downcase.include? "!new" then
-          event.respond CONFIG.new_user_message
-        elsif event.content.downcase.include? "!help" then
-          event.respond CONFIG.help_message
+        if stripped_message[0] == '!' then
+          args = stripped_message.slice(1..-1).split
+          command_name = args.slice!(0).downcase.to_sym
+          if ModbotCommands.respond_to? command_name then
+            if (CONFIG.debug) then ModbotUtils.message_owner(event, "Trying to accept command #{command_name} with args #{args.join(', ')}") end
+            ModbotCommands.send(command_name, event)
+          else
+            event.respond "Command `!#{command_name}` not recognised."
+          end
         else
           event.respond CONFIG.info_message
         end
