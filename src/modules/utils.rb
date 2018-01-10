@@ -1,6 +1,6 @@
 module ModbotCommands
   # Bot configuration
-  if !defined? CONFIG
+  if !defined? CONFIG then
     CONFIG = OpenStruct.new YAML.load_file 'data/config.yaml'
   end
 
@@ -21,7 +21,7 @@ end
 
 module ModbotUtils
   # Bot configuration
-  if !defined? CONFIG
+  if !defined? CONFIG then
     CONFIG = OpenStruct.new YAML.load_file 'data/config.yaml'
   end
 

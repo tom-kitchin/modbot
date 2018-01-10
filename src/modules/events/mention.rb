@@ -7,7 +7,9 @@ module Bot
     module Mention
       extend Discordrb::EventContainer
       mention do |event|
-        if (CONFIG.debug) then ModbotUtils.message_owner(event, "Mentioned with #{event.content}") end
+        if (CONFIG.debug) then
+          ModbotUtils.message_owner(event, "Mentioned with ```#{event.content}```")
+        end
         if event.content.downcase.include? "!rules" then
           event.respond CONFIG.rules_message
         elsif event.content.downcase.include? "!new" then
