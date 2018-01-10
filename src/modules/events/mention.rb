@@ -2,7 +2,7 @@ module Bot
   module DiscordEvents
     # This event is processed each time someone mentions the bot.
     # It just describes the bot's basic functions.
-    module Info
+    module Mention
       extend Discordrb::EventContainer
       mention do |event|
         if event.content.downcase.include? "!rules" then
