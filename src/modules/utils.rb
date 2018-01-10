@@ -18,6 +18,14 @@ module ModbotCommands
     event.respond CONFIG.help_message
   end
 
+  def good_boy (event)
+    if event.user.mention then
+      event.respond "#{event.user.mention} :hearts:"
+    else
+      event.respond ":hearts"
+    end
+  end
+
   def listroles (event)
     if !event.server then
       event.respond "Unable to identify server - this command doesn't work in PMs :("
