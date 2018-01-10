@@ -10,7 +10,7 @@ module Bot
         if CONFIG.debug then
           ModbotUtils.message_owner(event, "Mentioned with ```#{event.content}```")
         end
-        stripped_message = event.content.downcase.sub("<@#{CONFIG.client_id}>", "").strip
+        stripped_message = event.content.downcase.sub("<@!#{CONFIG.client_id}>", "").strip
         if CONFIG.debug then
           ModbotUtils.message_owner(event, "Stripped message is ```#{stripped_message}```")
         end
