@@ -1,5 +1,3 @@
-require_relative('../utils')
-
 module Bot
   module DiscordEvents
     # This event is processed each time someone PMs the bot.
