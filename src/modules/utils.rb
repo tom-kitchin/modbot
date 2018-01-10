@@ -27,7 +27,7 @@ module ModbotCommands
     roles = event.server.member(CONFIG.client_id).roles
 
     # Drop the bot's highest ranking role, we don't want to hand that out.
-    roles = roles.sort { |x, y| x.position <=> y.position }.drop(1)
+    roles = roles.sort { |x, y| y.position <=> x.position }.drop(1)
 
     if roles.empty? then
       event.respond "No roles available :("
