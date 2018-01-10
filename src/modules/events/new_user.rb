@@ -1,3 +1,5 @@
+require_relative('../utils')
+
 module Bot
   module DiscordEvents
     # Logs new users and tells them about server rules.
@@ -9,10 +11,8 @@ module Bot
         else
           # If we don't have a audit channel, PM it to the bot owner and
           # also remind them to set an audit channel!
-          target_channel_info_response = Discordrb::API::User.create_pm(event.bot.token, CONFIG.owner)
-          target_channel_info = JSON.parse(target_channel_info_response.body)
-          target_channel = target_channel_info['id']
-          event.bot.send_message(target_channel, "Hey, you should set my audit channel with set_audit_channel!")
+          target_channel = ModbotUtils.get_owner_channel(event)
+          ModbotUtils.message_owner(event, "Hey, you should set my audit channel with set_audit_channel!")
         end
 
         # Send new user audit log.
