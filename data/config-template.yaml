@@ -29,5 +29,8 @@ info_message:
 # a specific message if people ask for modbots rules
 rules_message:
 
+# the response to the !help command
+help_message:
+
 # debug mode
 debug: false
