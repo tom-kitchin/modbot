@@ -63,8 +63,13 @@ module ModbotCommands
 
     return event.respond "Role #{rolename} not available." unless role
 
-    event.user.add_role(role)
-    event.respond "#{event.user.mention} Role granted!"
+    begin
+      event.user.add_role(role)
+      event.respond "#{event.user.mention} Role granted!"
+    rescue => e
+      ModbotUtils.message_owner(event, "Failed to add role. Error was: ```#{e}```")
+      event.respond "Failed to add role due to an internal error :cry:"
+    end
   end
 
   def droprole (event, rolename)
@@ -80,8 +85,13 @@ module ModbotCommands
 
     return event.respond "#{event.user.mention} You don't have the role #{rolename} to remove!" unless role
 
-    event.user.remove_role(role)
-    event.respond "#{event.user.mention} Role removed!"
+    begin
+      event.user.remove_role(role)
+      event.respond "#{event.user.mention} Role removed!"
+    rescue => e
+      ModbotUtils.message_owner(event, "Failed to drop role. Error was: ```#{e}```")
+      event.respond "Failed to drop role due to an internal error :cry:"
+    end
   end
 end
 
