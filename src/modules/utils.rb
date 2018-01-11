@@ -1,4 +1,6 @@
 module ModbotCommands
+  extend self
+
   # Bot configuration
   CONFIG = OpenStruct.new YAML.load_file 'data/config.yaml' unless defined? CONFIG
 
