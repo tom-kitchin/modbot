@@ -59,7 +59,7 @@ module ModbotCommands
 
     roles = available_roles(event)
 
-    role = roles.find { |role| role.name == rolename }
+    role = roles.find { |role| role.name.downcase == rolename.downcase }
 
     return event.respond "Role #{rolename} not available." unless role
 
@@ -77,11 +77,11 @@ module ModbotCommands
 
     roles = available_roles(event)
 
-    role = roles.find { |role| role.name == rolename }
+    role = roles.find { |role| role.name.downcase == rolename.downcase }
 
     return event.respond "I can't do anything with role #{rolename} :cry:" unless role
 
-    role = event.user.roles.find { |role| role.name == rolename }
+    role = event.user.roles.find { |role| role.name.downcase == rolename.downcase }
 
     return event.respond "#{event.user.mention} You don't have the role #{rolename} to remove!" unless role
 
