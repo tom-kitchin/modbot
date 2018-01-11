@@ -50,7 +50,7 @@ module ModbotCommands
     else
       event.respond "Available roles:"
       event.respond roles.map { |role| "- #{role.name}" }.join("\n")
-      event.respond "Claim a role with `#{event.bot.mention} !getrole <rolename>`."
+      event.respond "Claim a role with `@ModBot !getrole <rolename>`."
     end
   end
 
