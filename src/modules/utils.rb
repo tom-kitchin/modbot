@@ -1,7 +1,6 @@
 module ModbotCommands
   # Bot configuration
-  if !defined? CONFIG then
-    CONFIG = OpenStruct.new YAML.load_file 'data/config.yaml'
+  CONFIG = OpenStruct.new YAML.load_file 'data/config.yaml' unless defined? CONFIG
   end
 
   module_function
@@ -19,7 +18,7 @@ module ModbotCommands
   end
 
   def good_boy (event)
-    if event.user.mention then
+    if event.user.mention
       event.respond "#{event.user.mention} :hearts:"
     else
       event.respond ":hearts"
@@ -37,20 +36,19 @@ module ModbotCommands
     # Drop the bot's highest ranking role, we don't want to hand that out.
     roles = roles.sort { |x, y| y.position <=> x.position }.drop(1)
 
-    if roles.empty? then
+    if roles.empty?
       event.respond "No roles available :("
     else
       event.respond "Available roles:"
       event.respond roles.map { |role| "- #{role.name}" }.join("\n")
+      event.respond "Claim a role with !getrole <rolename>."
     end
   end
 end
 
 module ModbotUtils
   # Bot configuration
-  if !defined? CONFIG then
-    CONFIG = OpenStruct.new YAML.load_file 'data/config.yaml'
-  end
+  CONFIG = OpenStruct.new YAML.load_file 'data/config.yaml' unless defined? CONFIG
 
   module_function
 

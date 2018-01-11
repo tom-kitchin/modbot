@@ -8,19 +8,21 @@ module Bot
       extend Discordrb::EventContainer
 
       pm do |event|
-        if event.content[0] == '!' then
+        if event.content[0] == '!'
           args = event.content.slice(1..-1).split
           event_name = args.slice!(0).downcase.to_sym
-          if ModbotCommands.respond_to? event_name then
-            if (CONFIG.debug) then ModbotUtils.message_owner(event, "Trying to accept command #{event_name} with args #{args.join(', ')}") end
+          if ModbotCommands.respond_to? event_name
+            if (CONFIG.debug)
+              ModbotUtils.message_owner(event, "Trying to accept command #{event_name} with args #{args.join(', ')}")
+            end
             ModbotCommands.send(event_name, event)
           else
             event.respond "Command `!#{event_name}` not recognised. If you were trying to reach the moderators with a message, just type it to me normally (without an ! on the beginning) :)"
           end
         else
-          if CONFIG.debug then
+          if CONFIG.debug
             target_channel = ModbotUtils.get_owner_channel(event)
-          elsif CONFIG.mod_channel then
+          elsif CONFIG.mod_channel
             target_channel = CONFIG.mod_channel
           else
             # If we don't have a mod channel, PM it to the bot owner and

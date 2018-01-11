@@ -7,19 +7,21 @@ module Bot
     module Mention
       extend Discordrb::EventContainer
       mention do |event|
-        if CONFIG.debug then
+        if CONFIG.debug
           ModbotUtils.message_owner(event, "Mentioned with ```#{event.content}```")
         end
         stripped_message = event.content.downcase.sub("<@!#{CONFIG.client_id}>", "").sub("<@#{CONFIG.client_id}>", "").strip
-        if CONFIG.debug then
+        if CONFIG.debug
           ModbotUtils.message_owner(event, "Stripped message is ```#{stripped_message}```")
         end
 
-        if stripped_message[0] == '!' then
+        if stripped_message[0] == '!'
           args = stripped_message.slice(1..-1).split
           command_name = args.slice!(0).downcase.to_sym
-          if ModbotCommands.respond_to? command_name then
-            if (CONFIG.debug) then ModbotUtils.message_owner(event, "Trying to accept command #{command_name} with args #{args.join(', ')}") end
+          if ModbotCommands.respond_to? command_name
+            if (CONFIG.debug)
+              ModbotUtils.message_owner(event, "Trying to accept command #{command_name} with args #{args.join(', ')}")
+            end
             ModbotCommands.send(command_name, event)
           else
             event.respond "Command `!#{command_name}` not recognised."

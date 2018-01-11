@@ -6,7 +6,7 @@ module Bot
     module NewUser
       extend Discordrb::EventContainer
       member_join do |event|
-        if CONFIG.audit_channel then
+        if CONFIG.audit_channel
           target_channel = CONFIG.audit_channel
         else
           # If we don't have a audit channel, PM it to the bot owner and
@@ -19,7 +19,7 @@ module Bot
         event.bot.send_message(target_channel, "New user: <@#{event.user.id}>")
 
         # Send the new user the new_user_message, if there is one set.
-        if CONFIG.new_user_message then
+        if CONFIG.new_user_message
           new_user_pms_info_response = Discordrb::API::User.create_pm(event.bot.token, event.user.id)
           new_user_pms_info = JSON.parse(new_user_pms_info_response.body)
           new_user_pms = new_user_pms_info['id']
