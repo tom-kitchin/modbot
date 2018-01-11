@@ -80,6 +80,7 @@ module ModbotCommands
 
     event.user.remove_role(role)
     event.respond "#{event.user.mention} Role removed!"
+  end
 end
 
 module ModbotUtils
