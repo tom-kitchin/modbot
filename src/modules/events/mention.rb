@@ -22,7 +22,7 @@ module Bot
             if (CONFIG.debug)
               ModbotUtils.message_owner(event, "Trying to accept command #{command_name} with args #{args.join(', ')}")
             end
-            ModbotCommands.send(command_name, event)
+            ModbotCommands.send(command_name, event, *args)
           else
             event.respond "Command `!#{command_name}` not recognised."
           end

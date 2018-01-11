@@ -15,7 +15,7 @@ module Bot
             if (CONFIG.debug)
               ModbotUtils.message_owner(event, "Trying to accept command #{event_name} with args #{args.join(', ')}")
             end
-            ModbotCommands.send(event_name, event)
+            ModbotCommands.send(event_name, event, *args)
           else
             event.respond "Command `!#{event_name}` not recognised. If you were trying to reach the moderators with a message, just type it to me normally (without an ! on the beginning) :)"
           end
