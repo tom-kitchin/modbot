@@ -1,6 +1,19 @@
 module ModbotCommands
   # Bot configuration
   CONFIG = OpenStruct.new YAML.load_file 'data/config.yaml' unless defined? CONFIG
+
+  def available_roles (event)
+    # The bot can hand out roles it itself has.
+    roles = event.server.member(CONFIG.client_id).roles
+
+    # Drop the bot's highest ranking role, we don't want to hand that out.
+    roles = roles.sort { |x, y| y.position <=> x.position }.drop(1)
+
+    return roles
+  end
+
+  def server_only (event)
+    event.respond "Unable to identify server - this command doesn't work in PMs :disappointed:"
   end
 
   module_function
@@ -26,15 +39,9 @@ module ModbotCommands
   end
 
   def listroles (event)
-    if !event.server then
-      event.respond "Unable to identify server - this command doesn't work in PMs :("
-    end
+    return server_only unless event.server
 
-    # The bot can hand out roles it itself has.
-    roles = event.server.member(CONFIG.client_id).roles
-
-    # Drop the bot's highest ranking role, we don't want to hand that out.
-    roles = roles.sort { |x, y| y.position <=> x.position }.drop(1)
+    roles = available_roles(event)
 
     if roles.empty?
       event.respond "No roles available :("
@@ -44,6 +51,35 @@ module ModbotCommands
       event.respond "Claim a role with !getrole <rolename>."
     end
   end
+
+  def getrole (event, rolename)
+    return server_only unless event.server
+
+    roles = available_roles(event)
+
+    role = roles.find { |role| role.name == rolename }
+
+    return event.respond "Role #{rolename} not available." unless role
+
+    event.user.add_role(role)
+    event.respond "#{event.user.mention} Role granted!"
+  end
+
+  def droprole (event, rolename)
+    return server_only unless event.server
+
+    roles = available_roles(event)
+
+    role = roles.find { |role| role.name == rolename }
+
+    return event.respond "I can't do anything with role #{rolename} :cry:" unless role
+
+    role = event.user.roles.find { |role| role.name == rolename }
+
+    return event.respond "#{event.user.mention} You don't have the role #{rolename} to remove!" unless role
+
+    event.user.remove_role(role)
+    event.respond "#{event.user.mention} Role removed!"
 end
 
 module ModbotUtils
