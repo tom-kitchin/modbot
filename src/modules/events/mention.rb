@@ -26,6 +26,10 @@ module Bot
           else
             event.respond "Command `!#{command_name}` not recognised."
           end
+        elsif stripped_message.include? "good boy" || stripped_message.include? ":good_dog:"
+          event.respond "#{event.user.mention} :hearts:"
+        elsif stripped_message.include? "welcome"
+          event.respond ":good_dog: WELCOME! :good_dog:"
         else
           event.respond CONFIG.info_message
         end

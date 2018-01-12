@@ -20,19 +20,19 @@ module ModbotCommands
 
   module_function
 
-  def rules (event)
+  def rules (event, *_)
     event.respond CONFIG.rules_message
   end
 
-  def new (event)
+  def new (event, *_)
     event.respond CONFIG.new_user_message
   end
 
-  def help (event)
+  def help (event, *_)
     event.respond CONFIG.help_message
   end
 
-  def good_boy (event)
+  def good_boy (event, *_)
     if event.user.mention
       event.respond "#{event.user.mention} :hearts:"
     else
@@ -40,7 +40,7 @@ module ModbotCommands
     end
   end
 
-  def listroles (event)
+  def listroles (event, *_)
     return server_only unless event.server
 
     roles = available_roles(event)
@@ -54,7 +54,7 @@ module ModbotCommands
     end
   end
 
-  def getrole (event, rolename)
+  def getrole (event, rolename, *_)
     return server_only unless event.server
 
     roles = available_roles(event)
@@ -72,7 +72,7 @@ module ModbotCommands
     end
   end
 
-  def droprole (event, rolename)
+  def droprole (event, rolename, *_)
     return server_only unless event.server
 
     roles = available_roles(event)
