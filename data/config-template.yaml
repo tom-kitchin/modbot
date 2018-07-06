@@ -6,13 +6,13 @@ client_id:
 token:
 
 # Command prefix
-prefix:
+prefix: !
 
 # ID of bot owner
 owner:
 
 # game the bot is playing
-game:
+game: Peaceful moderation
 
 # the channel ID to pass messages on to
 mod_channel:
@@ -26,14 +26,27 @@ send_new_user_message_on_join: false
 # a message to send to new users.
 new_user_message:
 
-# a general message when people talk to modbot
+# a general message when people mention modbot and it's not a command
 info_message:
 
-# a specific message if people ask for modbots rules
+# a specific message if people ask for the server rules
 rules_message:
 
-# the response to the !help command
-help_message:
+# the response to the help command
+# Note that the default text assumes the prefix is still the default of !
+help_message: |
+  Mention (@modbot) or PM me commands to use.
+  Supported commands:
+  - `!help` - show this message
+  - `!new` - show the introduction message for new members
+  - `!rules` - show the server rules
+  Any other messages PM'd to modbot are passed on to the moderators (NOT anonymously) as a tool for reporting and/or seeking help.
+
+  I also handle roles for finding fellow Ghosts to play with! The following commands only work in the server, not in PMs.
+  Supported commands:
+  - `!listroles` - display a list of available roles
+  - `!getrole <rolename>` - claim the named role
+  - `!droprole <rolename>` - remove a role you don't want any more
 
 # debug mode
 debug: false

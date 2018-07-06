@@ -2,8 +2,6 @@ require_relative('../utils')
 
 module Bot
   module DiscordCommands
-    # Responds with "Pong!".
-    # This used to check if bot is alive
     module SetModChannel
       extend Discordrb::Commands::CommandContainer
       command(:set_audit_channel, help_available: false) do |event, channel|
