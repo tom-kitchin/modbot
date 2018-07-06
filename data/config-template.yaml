@@ -20,6 +20,9 @@ mod_channel:
 # the channel ID to log audit events to
 audit_channel:
 
+# should I message the new_user_message to all users when they first join?
+send_new_user_message_on_join: false
+
 # a message to send to new users.
 new_user_message:
 
