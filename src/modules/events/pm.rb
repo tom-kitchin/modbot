@@ -8,7 +8,7 @@ module Bot
       extend Discordrb::EventContainer
 
       pm do |event|
-        if event.content[0] == '!'
+        if event.content[0] == CONFIG.prefix
           args = event.content.slice(1..-1).split
           event_name = args.slice!(0).downcase.to_sym
           if ModbotCommands.respond_to? event_name
@@ -17,7 +17,7 @@ module Bot
             end
             ModbotCommands.send(event_name, event, *args)
           else
-            event.respond "Command `!#{event_name}` not recognised. If you were trying to reach the moderators with a message, just type it to me normally (without an ! on the beginning) :)"
+            event.respond "Command `#{CONFIG.prefix}#{event_name}` not recognised. If you were trying to reach the moderators with a message, just type it to me normally (without a #{CONFIG.prefix} on the beginning) :)"
           end
         else
           if CONFIG.debug

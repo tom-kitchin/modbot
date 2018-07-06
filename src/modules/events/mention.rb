@@ -15,7 +15,7 @@ module Bot
           ModbotUtils.message_owner(event, "Stripped message is ```#{stripped_message}```")
         end
 
-        if stripped_message[0] == '!'
+        if stripped_message[0] == CONFIG.prefix
           args = stripped_message.slice(1..-1).split
           command_name = args.slice!(0).downcase.to_sym
           if ModbotCommands.respond_to? command_name
@@ -24,7 +24,7 @@ module Bot
             end
             ModbotCommands.send(command_name, event, *args)
           else
-            event.respond "Command `!#{command_name}` not recognised."
+            event.respond "Command `#{CONFIG.prefix}#{command_name}` not recognised."
           end
         elsif stripped_message.include?("good boy") || stripped_message.include?(":good_dog:")
           event.respond "#{event.user.mention} :hearts:"
