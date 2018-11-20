@@ -8,8 +8,16 @@ module Bot
       extend Discordrb::EventContainer
 
       pm do |event|
-        if event.content[0] == CONFIG.prefix
-          args = event.content.slice(1..-1).split
+        if CONFIG.debug
+          ModbotUtils.message_owner(event, "PM'd with ```#{event.content}```")
+        end
+        stripped_message = event.content.downcase.sub("<@!#{CONFIG.client_id}>", "").sub("<@#{CONFIG.client_id}>", "").sub("@modbot", "").strip
+        if CONFIG.debug
+          ModbotUtils.message_owner(event, "Stripped message is ```#{stripped_message}```")
+        end
+
+        if stripped_message[0] == CONFIG.prefix
+          args = stripped_message.slice(1..-1).split
           event_name = args.slice!(0).downcase.to_sym
           if ModbotCommands.respond_to? event_name
             if (CONFIG.debug)
