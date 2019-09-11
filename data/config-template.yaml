@@ -40,7 +40,11 @@ help_message: |
   - `!help` - show this message
   - `!new` - show the introduction message for new members
   - `!rules` - show the server rules
-  Any other messages PM'd to modbot are passed on to the moderators (NOT anonymously) as a tool for reporting and/or seeking help.
+
+  If you would like to contact the mods in private, you can PM me with the following commands:
+  - `!message_mods` - Send a private message to the moderator group, signed with your discord name.
+  - `!message_mods_anon` - Send a private message to the moderator group anonymously.
+  If you have concerns about the anonymity, you can check my code at https://github.com/tom-kitchin/modbot. Modbot retains no logs or details of messages sent anonymously. Obviously we will not be able to directly contact you about anonymous messages, but they will be taken seriously.
 
   I also handle roles for finding fellow Ghosts to play with! The following commands only work in the server, not in PMs.
   Supported commands:

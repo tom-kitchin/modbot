@@ -18,6 +18,10 @@ module ModbotCommands
     event.respond "Unable to identify server - this command doesn't work in PMs :disappointed:"
   end
 
+  def pm_only (event)
+    event.respond "This command only works in private messages to me, I'm afraid."
+  end
+
   module_function
 
   def rules (event, *_)
@@ -30,6 +34,52 @@ module ModbotCommands
 
   def help (event, *_)
     event.respond CONFIG.help_message
+  end
+
+  def message_mods (event, *_)
+    return pm_only if event.server
+
+    # if CONFIG.debug
+    #   target_channel = ModbotUtils.get_owner_channel(event)
+    # elsif CONFIG.mod_channel
+    #   target_channel = CONFIG.mod_channel
+    # else
+    #   # If we don't have a mod channel, PM it to the bot owner and
+    #   # also remind them to set a mod channel!
+    #   ModbotUtils.message_owner(event, "Hey, you should set my mod channel with set_mod_channel!")
+    # end
+
+    # DEBUG
+    target_channel = ModbotUtils.get_owner_channel(event)
+
+    message = event.content.sub("#{CONFIG.prefix}event", "").lstrip
+
+    event.bot.send_message(target_channel, "@everyone Received the following message from user <@#{event.author.id}>:")
+    event.bod.send_message(target_channel, "> #{message}")
+    event.respond "Thank you for your message. It has been passed on to the moderators, and they will get back to you as soon as possible."
+  end
+
+  def message_mods_anon (event, *_)
+    return pm_only if event.server
+
+    # if CONFIG.debug
+    #   target_channel = ModbotUtils.get_owner_channel(event)
+    # elsif CONFIG.mod_channel
+    #   target_channel = CONFIG.mod_channel
+    # else
+    #   # If we don't have a mod channel, PM it to the bot owner and
+    #   # also remind them to set a mod channel!
+    #   ModbotUtils.message_owner(event, "Hey, you should set my mod channel with set_mod_channel!")
+    # end
+
+    # DEBUG
+    target_channel = ModbotUtils.get_owner_channel(event)
+
+    message = event.content.sub("#{CONFIG.prefix}event", "").lstrip
+
+    event.bot.send_message(target_channel, "@everyone Received the following message anonymously:")
+    event.bod.send_message(target_channel, "> #{message}")
+    event.respond "Thank you for your message. It has been passed on to the moderators anonymously."
   end
 
   def good_boy (event, *_)
@@ -79,11 +129,11 @@ module ModbotCommands
 
     role = roles.find { |role| role.name.downcase == rolename.downcase }
 
-    return event.respond "I can't do anything with role #{rolename} :cry:" unless role
+    return event.respond "I can't do anything with that role :cry:" unless role
 
     role = event.user.roles.find { |role| role.name.downcase == rolename.downcase }
 
-    return event.respond "You don't have the role #{rolename} to remove!" unless role
+    return event.respond "You don't have that role to remove!" unless role
 
     begin
       event.user.remove_role(role)
