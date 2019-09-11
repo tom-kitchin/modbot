@@ -25,21 +25,11 @@ module Bot
             end
             ModbotCommands.send(event_name, event, *args)
           else
-            event.respond "Command `#{CONFIG.prefix}#{event_name}` not recognised. If you were trying to reach the moderators with a message, just type it to me normally (without a #{CONFIG.prefix} on the beginning) :)"
+            event.respond "Command `#{CONFIG.prefix}#{event_name}` not recognised. Say `!help` for my command list."
           end
         else
-          if CONFIG.debug
-            target_channel = ModbotUtils.get_owner_channel(event)
-          elsif CONFIG.mod_channel
-            target_channel = CONFIG.mod_channel
-          else
-            # If we don't have a mod channel, PM it to the bot owner and
-            # also remind them to set a mod channel!
-            ModbotUtils.message_owner(event, "Hey, you should set my mod channel with set_mod_channel!")
-          end
-
-          event.bot.send_message(target_channel, "@everyone Received the following message from user <@#{event.author.id}>: ```#{event.content}```")
-          event.respond "Thank you for your message. It has been passed on to the moderators, and they will get back to you as soon as possible."
+          event.respond CONFIG.info_message
+          event.respond "Also, if you were trying to PM the mods, the command you want is now `!message_mods your message goes here` or `!message_mods_anon message here` if you'd like to contact us anonymously."
         end
       end
     end

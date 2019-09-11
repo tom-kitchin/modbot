@@ -39,18 +39,16 @@ module ModbotCommands
   def message_mods (event, *_)
     return pm_only(event) if event.server
 
-    # if CONFIG.debug
-    #   target_channel = ModbotUtils.get_owner_channel(event)
-    # elsif CONFIG.mod_channel
-    #   target_channel = CONFIG.mod_channel
-    # else
-    #   # If we don't have a mod channel, PM it to the bot owner and
-    #   # also remind them to set a mod channel!
-    #   ModbotUtils.message_owner(event, "Hey, you should set my mod channel with set_mod_channel!")
-    # end
-
-    # DEBUG
-    target_channel = ModbotUtils.get_owner_channel(event)
+    if CONFIG.debug
+      target_channel = ModbotUtils.get_owner_channel(event)
+    elsif CONFIG.mod_channel
+      target_channel = CONFIG.mod_channel
+    else
+      # If we don't have a mod channel, PM it to the bot owner and
+      # also remind them to set a mod channel!
+      ModbotUtils.message_owner(event, "Hey, you should set my mod channel with set_mod_channel!")
+      target_channel = ModbotUtils.get_owner_channel(event)
+    end
 
     message = event.content.sub(/[#{CONFIG.prefix}]message_mods/, "").lstrip
 
@@ -62,18 +60,16 @@ module ModbotCommands
   def message_mods_anon (event, *_)
     return pm_only(event) if event.server
 
-    # if CONFIG.debug
-    #   target_channel = ModbotUtils.get_owner_channel(event)
-    # elsif CONFIG.mod_channel
-    #   target_channel = CONFIG.mod_channel
-    # else
-    #   # If we don't have a mod channel, PM it to the bot owner and
-    #   # also remind them to set a mod channel!
-    #   ModbotUtils.message_owner(event, "Hey, you should set my mod channel with set_mod_channel!")
-    # end
-
-    # DEBUG
-    target_channel = ModbotUtils.get_owner_channel(event)
+    if CONFIG.debug
+      target_channel = ModbotUtils.get_owner_channel(event)
+    elsif CONFIG.mod_channel
+      target_channel = CONFIG.mod_channel
+    else
+      # If we don't have a mod channel, PM it to the bot owner and
+      # also remind them to set a mod channel!
+      ModbotUtils.message_owner(event, "Hey, you should set my mod channel with set_mod_channel!")
+      target_channel = ModbotUtils.get_owner_channel(event)
+    end
 
     message = event.content.sub(/[#{CONFIG.prefix}]message_mods_anon/, "").lstrip
 
