@@ -33,7 +33,7 @@ module ModbotCommands
   end
 
   def help (event, *_)
-    event.respond CONFIG.help_message
+    return CONFIG.help_message
   end
 
   def message_mods (event, *_)
