@@ -55,7 +55,7 @@ module ModbotCommands
     message = event.content.sub(/[#{CONFIG.prefix}]message_mods/, "").lstrip
 
     event.bot.send_message(target_channel, "@everyone Received the following message from user <@#{event.author.id}>:")
-    event.bod.send_message(target_channel, "> #{message}")
+    event.bot.send_message(target_channel, "> #{message}")
     event.respond "Thank you for your message. It has been passed on to the moderators, and they will get back to you as soon as possible."
   end
 
@@ -78,7 +78,7 @@ module ModbotCommands
     message = event.content.sub(/[#{CONFIG.prefix}]message_mods_anon/, "").lstrip
 
     event.bot.send_message(target_channel, "@everyone Received the following message anonymously:")
-    event.bod.send_message(target_channel, "> #{message}")
+    event.bot.send_message(target_channel, "> #{message}")
     event.respond "Thank you for your message. It has been passed on to the moderators anonymously."
   end
 
