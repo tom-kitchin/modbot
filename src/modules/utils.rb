@@ -34,11 +34,10 @@ module ModbotCommands
 
   def help (event, *_)
     event.respond CONFIG.help_message
-    nil
   end
 
   def message_mods (event, *_)
-    return pm_only if event.server
+    return pm_only(event) if event.server
 
     # if CONFIG.debug
     #   target_channel = ModbotUtils.get_owner_channel(event)
@@ -61,7 +60,7 @@ module ModbotCommands
   end
 
   def message_mods_anon (event, *_)
-    return pm_only if event.server
+    return pm_only(event) if event.server
 
     # if CONFIG.debug
     #   target_channel = ModbotUtils.get_owner_channel(event)
@@ -92,7 +91,7 @@ module ModbotCommands
   end
 
   def listroles (event, *_)
-    return server_only unless event.server
+    return server_only(event) unless event.server
 
     roles = available_roles(event)
 
@@ -106,7 +105,7 @@ module ModbotCommands
   end
 
   def getrole (event, rolename, *_)
-    return server_only unless event.server
+    return server_only(event) unless event.server
 
     roles = available_roles(event)
 
@@ -124,7 +123,7 @@ module ModbotCommands
   end
 
   def droprole (event, rolename, *_)
-    return server_only unless event.server
+    return server_only(event) unless event.server
 
     roles = available_roles(event)
 
