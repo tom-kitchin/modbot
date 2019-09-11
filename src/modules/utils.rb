@@ -52,7 +52,7 @@ module ModbotCommands
     # DEBUG
     target_channel = ModbotUtils.get_owner_channel(event)
 
-    message = event.content.sub("#{CONFIG.prefix}event", "").lstrip
+    message = event.content.sub(/[#{CONFIG.prefix}]message_mods/, "").lstrip
 
     event.bot.send_message(target_channel, "@everyone Received the following message from user <@#{event.author.id}>:")
     event.bod.send_message(target_channel, "> #{message}")
@@ -75,7 +75,7 @@ module ModbotCommands
     # DEBUG
     target_channel = ModbotUtils.get_owner_channel(event)
 
-    message = event.content.sub("#{CONFIG.prefix}event", "").lstrip
+    message = event.content.sub(/[#{CONFIG.prefix}]message_mods_anon/, "").lstrip
 
     event.bot.send_message(target_channel, "@everyone Received the following message anonymously:")
     event.bod.send_message(target_channel, "> #{message}")
